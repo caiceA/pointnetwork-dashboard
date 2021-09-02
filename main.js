@@ -8,6 +8,7 @@ const { app,
       } = require('electron');
 const path = require('path');
 const http = require('http');
+const { default: openTerminal } = require('open-terminal'); // most probably will change
 const { platform } = require('process');
 const fs = require('fs');
 const tarfs = require('tar-fs');
@@ -132,18 +133,11 @@ ipcMain.on("docker-check", async (event, args) => {
 });
 
 ipcMain.on("docker-logs", async (event, args) => {
-    const containerName = args.container;
-    const cmd = `x-terminal-emulator -e docker-compose -f ${compose} -f ${composeDev} logs -f ${containerName} && bash || bash`;
-    exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-    });
+    try {
+        await openTerminal(`docker logs -f pointnetwork_${args.container};`);
+    } catch(e) {
+        console.error('Terminal opening error:', e);
+    }
 });
 
 ipcMain.on("platform-check", async (event, args) => {
