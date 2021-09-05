@@ -9,7 +9,7 @@ const { app,
 const path = require('path');
 const http = require('http');
 const { default: openTerminal } = require('open-terminal'); // most probably will change
-const { platform } = require('process');
+const Powershell = require('node-powershell');
 const fs = require('fs');
 const tarfs = require('tar-fs');
 const bz2 = require('unbzip2-stream');
@@ -133,15 +133,23 @@ ipcMain.on("docker-check", async (event, args) => {
 });
 
 ipcMain.on("docker-logs", async (event, args) => {
+    const command = `docker logs -f pointnetwork_${args.container};`;
+    console.log({'process.platform': process.platform});
     try {
-        await openTerminal(`docker logs -f pointnetwork_${args.container};`);
+        if (process.platform === 'win32') {
+            const powershell = new Powershell({executionPolicy: 'Bypass', noProfile: true});
+            powershell.addCommand(command);
+            console.log('powershell said:', await powershell.invoke());
+        } else {
+            await openTerminal(command);
+        }
     } catch(e) {
         console.error('Terminal opening error:', e);
     }
 });
 
 ipcMain.on("platform-check", async (event, args) => {
-    win.webContents.send("platform-checked", platform);
+    win.webContents.send("platform-checked", process.platform);
 });
 
 ipcMain.on("firefox-run", (event, args) => {
