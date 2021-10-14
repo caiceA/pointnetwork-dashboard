@@ -47,4 +47,4 @@ script.
    1. `cd $HOME/.point/src/pointnetwork-dashboard`
    1. `nvm install && nvm use` (optional, if you don't have `node` 14 already installed)
    1. `npm install`
-   1. `npm start`
+   1. `npm startnp`

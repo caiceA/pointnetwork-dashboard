@@ -20,24 +20,48 @@
     <script src="../../../resources/assets/bip39.browser.js"></script>
     <script src="../../../resources/assets/bootstrap-tagsinput.min.js"></script>
     <script src="../../../resources/assets/clipboard.min.js"></script>
+    <style>
+       @import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap'); 
+        body{
+            font-family: 'Hind', sans-serif;
+            color:#222;
+        }
+        
+        .logo-place{
+            display: flex;
+            align-items: center;
+            margin:10px auto;
+            width:300px;
+            text-align: center;
+        }
+        .logo-title{
+            font-size:36px;
+            margin-left:10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container-fluid">
-    <h1>Point Network</h1>
+    <div class="logo-place">
+       <div class="logo"><img src="http://neckcode.com/point-logo-svg.svg" height="50"></div>
+        <div class="logo-title">Point Network</div>
+        </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" style="padding:20px;">
 
-            <div class="screen screen-intro">
-                <p>Welcome to Web 3.0!</p>
+            <div class="screen screen-intro text-center">
+                <p style="font-size: 18px; font-weight:500;">Welcome to Web 3.0</p>
 
-                <p>You're so close to enjoying the next generation of the internet! Just a few steps left:</p>
+                <p>You're so close to enjoying the next generation of the internet! Just a few steps left</p>
 
-                <h2>Register</h2>
+                <!-- <h2>Register</h2> -->
 
-                <button class="btn btn-info" id="btn-generate-seed">Generate</button>
+                <button class="btn btn-info" id="btn-generate-seed" style="color:white; background: #26BB97;  border: 1px solid #26BB97;">Register & Generate</button>
 
                 <style>
                     .stripey-background {
@@ -48,25 +72,28 @@
                                 #333 10px,
                                 #333 20px
                         );
+                        margin:20px auto;
                     }
                     .seed {
                         background-color: #1e1a1a;
-                        color: #c8ff00;
+                        color: #71d663;
                         text-align: center;
+                    }
+                    .text-center{
+                        text-align:center;
                     }
                     .seed .word {
                         padding: 5px;
                         margin: 5px;
-                        border: 1px solid #9ae714;
+                        border: 1px solid #71d663;
                         border-radius: 5px;
                         display: inline-block;
-
                         background: rgba(0,0,0,0.3);
                     }
                 </style>
                 <div class="seed stripey-background" id="seed"></div>
 
-                <p style="text-align:center">Never share this seed phrase with anyone!</p>
+                <p style="text-align:center; background: #F7FEF7; color:#25936B; padding:5px 10px; margin:10px auto; display: inline-block;"><img src="guard-ico.svg"> Never share this seed phrase with anyone!</p>
 
                 <button class="btn btn-info" style="display:none;" id="btn-go-confirm-phrase">I have it written down, continue &rarr;</button>
 
