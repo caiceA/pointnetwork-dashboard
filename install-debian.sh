@@ -16,6 +16,7 @@ NC='\033[0m' # No color.
 
 # Make sure 'nvm' comes first than 'node'.
 CMDS=('git' 'wget' 'curl' 'nvm' 'node' 'docker' 'docker-compose')
+export BRANCH="master"
 export POINT_DIR="$HOME/.point"
 export SRC_DIR="$POINT_DIR/src"
 export SRC_PN_DIR="$SRC_DIR/pointnetwork"
@@ -129,7 +130,7 @@ install() {
     if is_linux; then
       sudo apt-get --assume-yes install $1 || fail "apt-get install $1 failed"
     elif is_mac; then
-      brew install $1 || fail "brew install $1 failed"
+      brew install $1 # || fail "brew install $1 failed"
     else
       fail "Unsupported system"
     fi
@@ -473,7 +474,7 @@ create_aliases() {
     sudo tee "/usr/bin/point-up" <<FILE >/dev/null
 #!/bin/bash
 cd $SRC_PN_DIR
-git checkout feature/znet
+git checkout $BRANCH
 git pull
 CMD="export POINT_KEYSTORE=$POINT_DIR/keystore; docker-compose up -d"
 if [[ $(uname) == 'Darwin' ]]; then
@@ -505,7 +506,7 @@ FILE
 }
 
 download_docker_images() {
-  sudo bash -c "cd $SRC_PN_DIR || exit 1; docker-compose pull"
+  sudo bash -c "cd $SRC_PN_DIR || exit 1; git checkout $BRANCH; docker-compose pull"
 }
 
 ## Welcome message

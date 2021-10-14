@@ -199,7 +199,7 @@ class Firefox {
             return path.join(rootPath, 'point-browser-portable.exe');
         }
         if (osAndArch == 'mac') {
-            return `open ${path.join(rootPath, 'Firefox.app')}`;
+            return `${path.join(rootPath, 'Firefox.app')}`;
         }
         // linux
         return path.join(rootPath, 'firefox');
@@ -235,6 +235,7 @@ pref('app.shield.optoutstudies.enabled', false);
 pref('network.proxy.autoconfig_url', '${pacFile}');
 pref('security.enterprise_roots.enabled', true);
 pref('network.captive-portal-service.enabled', false);
+pref('browser.tabs.drawInTitlebar', true);
 `;
         const prefPath = await this.getPrefPath(osAndArch);
         const appPath = await this.getAppPath(osAndArch);
